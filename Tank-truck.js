@@ -37,3 +37,34 @@ function tankvol(h, d, vt) {
 }
 
 // or
+
+function tankvol(h, d, vt) {
+  if (h === 0) return 0;
+  // radius
+  let r = d / 2.0;
+  if (h === r) return Math.floor(vt / 2);
+  if (h === d) return vt;
+  // height > radius, calculate with d - h and at the end change the volume
+  if (h > r) {
+      h = d - h;
+      let hilevel = true;
+  }
+  else
+      hilevel = false;
+  // total area of circle
+  let st = Math.PI * r * r;
+  // half angle from the center
+  let theta = Math.acos((r - h) / r);
+  // b = sqrt(r * r - (r - h) ** 2) one side of the right triangle
+  let sr = (r - h) * Math.sqrt(r * r - (r - h) * (r - h));
+  // area corresponding to angle 2 * theta
+  let sa = st / Math.PI * theta;
+  // surface corresponding to the height
+  let sh = sa - sr;
+  // volume to find corresponding to surface of liquid / total surface
+  let v = vt * sh / st;
+  // if height > radius
+  if (hilevel)
+      v = vt - v;   
+  return Math.floor(v)
+}
