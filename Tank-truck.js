@@ -26,3 +26,12 @@ Examples:
 
 
 // Solution
+
+function tankvol(h, d, vt) {
+  let r = d / 2;
+  let w = vt / (r * r * Math.PI);
+  let a = (r * r) * Math.acos(1 - h / r) 
+        - (r - h) * Math.sqrt(2 * r * h - h * h); 
+  
+  return w * a | 0;
+}
